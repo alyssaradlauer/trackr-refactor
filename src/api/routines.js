@@ -1,8 +1,8 @@
 const API = import.meta.env.VITE_API;
 
-export async function getActivities() {
+export async function getRoutines() {
   try {
-    const response = await fetch(API + "/activities");
+    const response = await fetch(API + "/routines");
     const result = await response.json();
     return result;
   } catch (e) {
@@ -11,9 +11,9 @@ export async function getActivities() {
   }
 }
 
-export async function getActivity(id) {
+export async function getRoutine(id) {
   try {
-    const response = await fetch(API + "/activities/" + id);
+    const response = await fetch(API + "/routines/" + id);
     const result = await response.json();
     return result;
   } catch (e) {
@@ -21,19 +21,14 @@ export async function getActivity(id) {
     return null;
   }
 }
-
-export async function createActivity(token, activity) {
-  if (!token) {
-    throw Error("You must be signed in to create an activity.");
-  }
-
-  const response = await fetch(API + "/activities", {
+export async function createRoutine(token, routine) {
+  const response = await fetch(API + "/routines", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-    body: JSON.stringify(activity),
+    body: JSON.stringify(routine),
   });
 
   if (!response.ok) {
@@ -42,12 +37,8 @@ export async function createActivity(token, activity) {
   }
 }
 
-export async function deleteActivity(token, id) {
-  if (!token) {
-    throw Error("You must be signed in to delete an activity.");
-  }
-
-  const response = await fetch(API + "/activities/" + id, {
+export async function deleteRoutine(token, id) {
+  const response = await fetch(API + "/routines/" + id, {
     method: "DELETE",
     headers: { Authorization: "Bearer " + token },
   });
